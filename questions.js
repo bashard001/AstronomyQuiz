@@ -2,7 +2,7 @@ var mainContent = document.querySelector("#main-content")
 
 var title = document.querySelector("#title");
 var choices = document.querySelector("#choices")
-var answer = document.querySelector("#log");
+var yourAnswer = document.querySelector("#log");
 
 var quizBtn = document.querySelector('button')
 
@@ -22,7 +22,7 @@ var questions = [
   {
     title: "what is the shape of the earth?",
     choices: ["flat.", "rectangle.", "spherical.", "non of the above."],
-    answer: "spherical"
+    answer: "spherical."
   },
   {
     title: "which statement is true? ",
@@ -52,10 +52,20 @@ function nextQuestion() {
         choices.removeChild(choices.firstChild);
       }
       for (j = 0; j < questions[i].choices.length; j++) {
+        if (questions[i].choices[j] == questions[i].answer){
+          var options = document.createElement('h3')
+        options.className += "buttons"
+        options.setAttribute("answer", "right")
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+    
+    
+        } else {
         var options = document.createElement('h3')
         options.className += "buttons"
         options.textContent = questions[i].choices[j];
         choices.appendChild(options)
+        }
       }
 
       nextQuestion()
@@ -68,34 +78,83 @@ function nextQuestion() {
 }
 
 
-
-
 function buildQuiz() {
 
   title.innerHTML = questions[i].title;
   for (var j = 0; j < questions[i].choices.length; j++) {
-    var options = document.createElement('h3')
+    if (questions[i].choices[j] == questions[i].answer){
+      var options = document.createElement('h3')
+    options.className += "buttons"
+    options.setAttribute("answer", "right")
+    options.textContent = questions[i].choices[j];
+    choices.appendChild(options)
+
+
+    } else {
+      var options = document.createElement('h3')
     options.className += "buttons"
     options.textContent = questions[i].choices[j];
     choices.appendChild(options)
+    }
+    
   }
   //var buttons = document.querySelector(".option-buttons")
   var buttons = document.querySelectorAll(".buttons")
 
+  
+
   buttons.forEach(function (buttons) {
 
+
     buttons.addEventListener("click", function () {
+
+      if (buttons.hasAttribute("answer")){
+        i++;
+        yourAnswer.textContent = "good job!!!"
+      title.innerHTML = questions[i].title;
+      while (choices.firstChild) {
+        choices.removeChild(choices.firstChild);
+      }
+      for (j = 0; j < questions[i].choices.length; j++) {
+        if (questions[i].choices[j] == questions[i].answer){
+          var options = document.createElement('h3')
+        options.className += "buttons"
+        options.setAttribute("answer", "right")
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+    
+    
+        } else {
+        var options = document.createElement('h3')
+        options.className += "buttons"
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+        }
+      }
+      nextQuestion()
+      } else {
       i++;
       title.innerHTML = questions[i].title;
       while (choices.firstChild) {
         choices.removeChild(choices.firstChild);
       }
       for (j = 0; j < questions[i].choices.length; j++) {
+        if (questions[i].choices[j] == questions[i].answer){
+          var options = document.createElement('h3')
+        options.className += "buttons"
+        options.setAttribute("answer", "right")
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+    
+    
+        } else {
         var options = document.createElement('h3')
         options.className += "buttons"
         options.textContent = questions[i].choices[j];
         choices.appendChild(options)
+        }
       }
+    }
 
       nextQuestion()
     })
