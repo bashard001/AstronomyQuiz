@@ -4,9 +4,9 @@ var title = document.querySelector("#title");
 var choices = document.querySelector("#choices")
 var yourAnswer = document.querySelector("#log");
 
-var quizBtn = document.querySelector('button')
+var quizBtn = document.querySelector('.buttons')
 
-
+//questions list
 var questions = [
 
   {
@@ -39,39 +39,93 @@ var questions = [
 
 var i = 0;
 
+var score = 0;
+// allowing to go to the next questions and adding click events on the options
 function nextQuestion() {
 
   var buttons = document.querySelectorAll(".buttons")
 
+
+
   buttons.forEach(function (buttons) {
 
+
     buttons.addEventListener("click", function () {
-      i++;
-      title.innerHTML = questions[i].title;
-      while (choices.firstChild) {
-        choices.removeChild(choices.firstChild);
-      }
-      for (j = 0; j < questions[i].choices.length; j++) {
-        if (questions[i].choices[j] == questions[i].answer){
-          var options = document.createElement('h3')
-        options.className += "buttons"
-        options.setAttribute("answer", "right")
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-    
-    
-        } else {
-        var options = document.createElement('h3')
-        options.className += "buttons"
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
+
+      if (buttons.hasAttribute("answer")) {
+
+        score++;
+
+        yourAnswer.textContent = "great job!!!";
+
+        setTimeout(function () {
+
+          yourAnswer.textContent = "";
+        }, 1000)
+
+
+        i++;
+
+
+        title.innerHTML = questions[i].title;
+        while (choices.firstChild) {
+          choices.removeChild(choices.firstChild);
+        }
+        for (j = 0; j < questions[i].choices.length; j++) {
+          if (questions[i].choices[j] == questions[i].answer) {
+            var options = document.createElement('h3')
+            options.className += "buttons"
+            options.setAttribute("answer", "right")
+            options.textContent = questions[i].choices[j];
+            choices.appendChild(options)
+
+
+          } else {
+            var options = document.createElement('h3')
+            options.className += "buttons"
+            options.textContent = questions[i].choices[j];
+            choices.appendChild(options)
+          }
+        }
+        nextQuestion()
+      } else {
+
+        yourAnswer.textContent = "wrong answer!!!";
+
+        setTimeout(function () {
+          yourAnswer.textContent = "";
+
+
+
+        }, 1000);
+
+        i++;
+        title.innerHTML = questions[i].title;
+        while (choices.firstChild) {
+          choices.removeChild(choices.firstChild);
+        }
+        for (j = 0; j < questions[i].choices.length; j++) {
+          if (questions[i].choices[j] == questions[i].answer) {
+            var options = document.createElement('h3')
+            options.className += "buttons"
+            options.setAttribute("answer", "right")
+            options.textContent = questions[i].choices[j];
+            choices.appendChild(options)
+
+
+          } else {
+            var options = document.createElement('h3')
+            options.className += "buttons"
+            options.textContent = questions[i].choices[j];
+            choices.appendChild(options)
+          }
         }
       }
 
-      nextQuestion()
 
-      //nextQuestion()
+      nextQuestion()
     })
+
   })
 
 
@@ -82,84 +136,24 @@ function buildQuiz() {
 
   title.innerHTML = questions[i].title;
   for (var j = 0; j < questions[i].choices.length; j++) {
-    if (questions[i].choices[j] == questions[i].answer){
+    if (questions[i].choices[j] == questions[i].answer) {
       var options = document.createElement('h3')
-    options.className += "buttons"
-    options.setAttribute("answer", "right")
-    options.textContent = questions[i].choices[j];
-    choices.appendChild(options)
+      options.className += "buttons"
+      options.setAttribute("answer", "right")
+      options.textContent = questions[i].choices[j];
+      choices.appendChild(options)
 
 
     } else {
       var options = document.createElement('h3')
-    options.className += "buttons"
-    options.textContent = questions[i].choices[j];
-    choices.appendChild(options)
+      options.className += "buttons"
+      options.textContent = questions[i].choices[j];
+      choices.appendChild(options)
     }
-    
+
   }
   //var buttons = document.querySelector(".option-buttons")
-  var buttons = document.querySelectorAll(".buttons")
-
-  
-
-  buttons.forEach(function (buttons) {
-
-
-    buttons.addEventListener("click", function () {
-
-      if (buttons.hasAttribute("answer")){
-        i++;
-        yourAnswer.textContent = "good job!!!"
-      title.innerHTML = questions[i].title;
-      while (choices.firstChild) {
-        choices.removeChild(choices.firstChild);
-      }
-      for (j = 0; j < questions[i].choices.length; j++) {
-        if (questions[i].choices[j] == questions[i].answer){
-          var options = document.createElement('h3')
-        options.className += "buttons"
-        options.setAttribute("answer", "right")
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-    
-    
-        } else {
-        var options = document.createElement('h3')
-        options.className += "buttons"
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-        }
-      }
-      nextQuestion()
-      } else {
-      i++;
-      title.innerHTML = questions[i].title;
-      while (choices.firstChild) {
-        choices.removeChild(choices.firstChild);
-      }
-      for (j = 0; j < questions[i].choices.length; j++) {
-        if (questions[i].choices[j] == questions[i].answer){
-          var options = document.createElement('h3')
-        options.className += "buttons"
-        options.setAttribute("answer", "right")
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-    
-    
-        } else {
-        var options = document.createElement('h3')
-        options.className += "buttons"
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-        }
-      }
-    }
-
-      nextQuestion()
-    })
-
-  })
+  nextQuestion()
 
 
 }
