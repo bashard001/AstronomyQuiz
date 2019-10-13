@@ -40,6 +40,11 @@ var questions = [
 var i = 0;
 
 var score = 0;
+
+var timeLeft = 75;
+var timeEl = document.getElementById("timeleft")
+
+var timerEl = document.getElementById("timer")
 // allowing to go to the next questions and adding click events on the options
 function nextQuestion() {
 
@@ -63,7 +68,7 @@ function nextQuestion() {
           yourAnswer.textContent = "";
         }, 1000)
 
-
+        timeLeft += 3;
         i++;
 
 
@@ -98,7 +103,7 @@ function nextQuestion() {
 
 
         }, 1000);
-
+        timeLeft-= 5;
         i++;
         title.innerHTML = questions[i].title;
         while (choices.firstChild) {
@@ -165,6 +170,26 @@ quizBtn.addEventListener("click", function () {
 
   mainContent.removeChild(quizBtn)
   choices.textContent = ''
+
+  timerEl.textContent = "The Quiz has started..."
+
+
+  var timeInterval = setInterval(function() {
+    timeEl.textContent = "you have " + timeLeft + " seconds remaining";
+    timeLeft--;
+
+    if (timeLeft === -1) {
+      timeEl.textContent = "";
+    
+      clearInterval(timeInterval);
+    }
+
+  }, 1000);
+
+
+  timeEl.textContent = 
+
+
   buildQuiz()
 })
 

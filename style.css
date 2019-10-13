@@ -24,3 +24,19 @@
     background-color: bisque;
 
 }
+
+#head {
+    position: relative;
+} 
+
+#timer {
+float: left;
+margin-left: 20%
+}
+
+#timeleft {
+    float: right;
+
+    margin-right: 20%
+}
+
