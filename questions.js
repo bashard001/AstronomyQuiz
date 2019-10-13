@@ -42,6 +42,7 @@ var i = 0;
 var score = 0;
 
 var timeLeft = 75;
+var z = i + 1
 var timeEl = document.getElementById("timeleft")
 
 var timerEl = document.getElementById("timer")
@@ -71,64 +72,77 @@ function nextQuestion() {
         timeLeft += 3;
         i++;
 
+        if (i < questions.length) {
 
-        title.innerHTML = questions[i].title;
-        while (choices.firstChild) {
-          choices.removeChild(choices.firstChild);
-        }
-        for (j = 0; j < questions[i].choices.length; j++) {
-          if (questions[i].choices[j] == questions[i].answer) {
-            var options = document.createElement('h3')
-            options.className += "buttons"
-            options.setAttribute("answer", "right")
-            options.textContent = questions[i].choices[j];
-            choices.appendChild(options)
-
-
-          } else {
-            var options = document.createElement('h3')
-            options.className += "buttons"
-            options.textContent = questions[i].choices[j];
-            choices.appendChild(options)
+          title.innerHTML = questions[i].title;
+          while (choices.firstChild) {
+            choices.removeChild(choices.firstChild);
           }
-        }
-        nextQuestion()
-      } else {
-
-        yourAnswer.textContent = "wrong answer!!!";
-
-        setTimeout(function () {
-          yourAnswer.textContent = "";
-
+          for (j = 0; j < questions[i].choices.length; j++) {
+            if (questions[i].choices[j] == questions[i].answer) {
+              var options = document.createElement('h3')
+              options.className += "buttons"
+              options.setAttribute("answer", "right")
+              options.textContent = questions[i].choices[j];
+              choices.appendChild(options)
 
 
-        }, 1000);
-        timeLeft-= 5;
-        i++;
-        title.innerHTML = questions[i].title;
-        while (choices.firstChild) {
-          choices.removeChild(choices.firstChild);
-        }
-        for (j = 0; j < questions[i].choices.length; j++) {
-          if (questions[i].choices[j] == questions[i].answer) {
-            var options = document.createElement('h3')
-            options.className += "buttons"
-            options.setAttribute("answer", "right")
-            options.textContent = questions[i].choices[j];
-            choices.appendChild(options)
-
-
-          } else {
-            var options = document.createElement('h3')
-            options.className += "buttons"
-            options.textContent = questions[i].choices[j];
-            choices.appendChild(options)
+            } else {
+              var options = document.createElement('h3')
+              options.className += "buttons"
+              options.textContent = questions[i].choices[j];
+              choices.appendChild(options)
+            }
           }
-        }
+        } else {
+
+          endingPage()
+        
       }
 
+    } else {
 
+      yourAnswer.textContent = "wrong answer!!!";
+
+      setTimeout(function() {
+        yourAnswer.textContent = "";
+
+
+
+      }, 1000);
+    timeLeft -= 5;
+    i++;
+
+    if (i < questions.length){
+    title.innerHTML = questions[i].title;
+    while (choices.firstChild) {
+      choices.removeChild(choices.firstChild);
+    }
+    for (j = 0; j < questions[i].choices.length; j++) {
+      if (questions[i].choices[j] == questions[i].answer) {
+        var options = document.createElement('h3')
+        options.className += "buttons"
+        options.setAttribute("answer", "right")
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+
+
+      } else {
+        var options = document.createElement('h3')
+        options.className += "buttons"
+        options.textContent = questions[i].choices[j];
+        choices.appendChild(options)
+      }
+    }
+  }  else {
+
+    endingPage()
+  }
+  }
+      
       nextQuestion()
+
+
     })
 
   })
@@ -163,8 +177,26 @@ function buildQuiz() {
 
 }
 
+// this is the starter of the page
 title.textContent = "Astronomy Quiz"
 choices.innerHTML = "<h2>This is the Astronomy Quiz you been waiting to take all your life!! are you prepared Click the button to get started!!!</h2>"
+
+function endingPage() {
+  var option = document.createElement("input")
+  var option2 = document.createElement("button")
+  title.textContent = "You have successful finished the Quiz";
+  option.className = "input"
+  option2.textContent = "Click to get your score"
+  while (choices.firstChild) {
+    choices.removeChild(choices.firstChild);
+  }
+  
+  choices.appendChild(option)
+  choices.appendChild(option2)
+
+}
+
+
 
 quizBtn.addEventListener("click", function () {
 
@@ -174,23 +206,34 @@ quizBtn.addEventListener("click", function () {
   timerEl.textContent = "The Quiz has started..."
 
 
-  var timeInterval = setInterval(function() {
+  var timeInterval = setInterval(function () {
     timeEl.textContent = "you have " + timeLeft + " seconds remaining";
     timeLeft--;
 
-    if (timeLeft === -1) {
+    if ((timeLeft === -1)||(i == questions.length)) {
       timeEl.textContent = "";
-    
+      timerEl.textContent = "";
+
       clearInterval(timeInterval);
-      return
+
     }
 
   }, 1000);
 
 
-  timeEl.textContent = 
 
 
-  buildQuiz()
+
+  if ((timeLeft < 0) || (i == questions.length)) {
+
+    endingPage()
+
+
+
+  } else {
+    buildQuiz()
+  }
+
+
 })
 
