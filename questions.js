@@ -182,6 +182,7 @@ quizBtn.addEventListener("click", function () {
       timeEl.textContent = "";
     
       clearInterval(timeInterval);
+      return
     }
 
   }, 1000);
