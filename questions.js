@@ -194,6 +194,19 @@ function endingPage() {
   choices.appendChild(option)
   choices.appendChild(option2)
 
+  option2.addEventListener("click", function(){
+    while (choices.firstChild) {
+      choices.removeChild(choices.firstChild);
+    }
+
+    var finalResult = document.createElement("h3")
+    finalResult.textContent = option.value + ":" + score
+
+    choices.appendChild(finalResult)
+
+
+  })
+
 }
 
 
