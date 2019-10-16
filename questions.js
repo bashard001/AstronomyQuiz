@@ -37,24 +37,12 @@ var questions = [
 
 ];
 
-var i = 0;
-
-var score = 0;
-
-var timeLeft = 75;
-var z = i + 1
-var timeEl = document.getElementById("timeleft")
-
-var timerEl = document.getElementById("timer")
 // allowing to go to the next questions and adding click events on the options
 function nextQuestion() {
 
   var buttons = document.querySelectorAll(".buttons")
 
-
-
   buttons.forEach(function (buttons) {
-
 
     buttons.addEventListener("click", function () {
 
@@ -97,59 +85,50 @@ function nextQuestion() {
         } else {
 
           endingPage()
-        
-      }
 
-    } else {
-
-      yourAnswer.textContent = "wrong answer!!!";
-
-      setTimeout(function() {
-        yourAnswer.textContent = "";
-
-
-
-      }, 1000);
-    timeLeft -= 5;
-    i++;
-
-    if (i < questions.length){
-    title.innerHTML = questions[i].title;
-    while (choices.firstChild) {
-      choices.removeChild(choices.firstChild);
-    }
-    for (j = 0; j < questions[i].choices.length; j++) {
-      if (questions[i].choices[j] == questions[i].answer) {
-        var options = document.createElement('h3')
-        options.className += "buttons"
-        options.setAttribute("answer", "right")
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
-
+        }
 
       } else {
-        var options = document.createElement('h3')
-        options.className += "buttons"
-        options.textContent = questions[i].choices[j];
-        choices.appendChild(options)
+
+        yourAnswer.textContent = "wrong answer!!!";
+
+        setTimeout(function () {
+          yourAnswer.textContent = "";
+        }, 1000);
+        timeLeft -= 5;
+        i++;
+
+        if (i < questions.length) {
+          title.innerHTML = questions[i].title;
+          while (choices.firstChild) {
+            choices.removeChild(choices.firstChild);
+          }
+          for (j = 0; j < questions[i].choices.length; j++) {
+            if (questions[i].choices[j] == questions[i].answer) {
+              var options = document.createElement('h3')
+              options.className += "buttons"
+              options.setAttribute("answer", "right")
+              options.textContent = questions[i].choices[j];
+              choices.appendChild(options)
+
+
+            } else {
+              var options = document.createElement('h3')
+              options.className += "buttons"
+              options.textContent = questions[i].choices[j];
+              choices.appendChild(options)
+            }
+          }
+        } else {
+
+          endingPage()
+        }
       }
-    }
-  }  else {
-
-    endingPage()
-  }
-  }
-      
       nextQuestion()
-
-
     })
 
   })
-
-
 }
-
 
 function buildQuiz() {
 
@@ -177,32 +156,72 @@ function buildQuiz() {
 
 }
 
+
+var i = 0;
+
+var score = 0;
+
+var timeLeft = 75;
+var z = i + 1
+var timeEl = document.getElementById("timeleft")
+
+var timerEl = document.getElementById("timer")
+var pastScore = document.createElement("h4")
+var oldPastScore = localStorage.getItem("yourScore")
+
+var pastScoreValue = localStorage.getItem("scorevalue")
+pastScore.innerHTML = "Highest score:" + "<br>" + oldPastScore;
+
 // this is the starter of the page
 title.textContent = "Astronomy Quiz"
 choices.innerHTML = "<h2>This is the Astronomy Quiz you been waiting to take all your life!! are you prepared Click the button to get started!!!</h2>"
 
 function endingPage() {
-  var option = document.createElement("input")
-  var option2 = document.createElement("button")
+  var enterInitials = document.createElement("input")
+  var submitInitials = document.createElement("button")
   title.textContent = "You have successful finished the Quiz";
-  option.className = "input"
-  option2.textContent = "Click to get your score"
+  enterInitials.className = "input"
+  enterInitials.setAttribute("placeholder", "enter your initials")
+  enterInitials.setAttribute("maxlength", "2")
+  submitInitials.textContent = "Click to get your score"
   while (choices.firstChild) {
     choices.removeChild(choices.firstChild);
   }
-  
-  choices.appendChild(option)
-  choices.appendChild(option2)
 
-  option2.addEventListener("click", function(){
+  choices.appendChild(enterInitials)
+  choices.appendChild(submitInitials)
+
+  submitInitials.addEventListener("click", function () {
     while (choices.firstChild) {
       choices.removeChild(choices.firstChild);
     }
 
     var finalResult = document.createElement("h3")
-    finalResult.textContent = option.value + ":" + score
+    var box = document.createElement("fieldset")
+    box.innerHTML = "<legend> Scores </legend>"
 
-    choices.appendChild(finalResult)
+    
+    finalResult.textContent = enterInitials.value.toUpperCase() + " : " + score;
+
+    var scoreHistory = finalResult.textContent
+    
+    choices.appendChild(box)
+    finalResult.textContent ="Your score: " + enterInitials.value.toUpperCase() + " : " + score;
+
+    if (oldPastScore == null || oldPastScore.length > 10){
+    choices.firstChild.appendChild(finalResult)
+    } else {
+      choices.firstChild.appendChild(pastScore)
+      choices.firstChild.appendChild(finalResult)
+    }
+
+    console.log(pastScoreValue)
+
+    if (pastScoreValue < score || pastScoreValue == null){
+    localStorage.setItem("yourScore", scoreHistory)
+
+    localStorage.setItem("scorevalue", score)
+    }
 
 
   })
@@ -216,14 +235,22 @@ quizBtn.addEventListener("click", function () {
   mainContent.removeChild(quizBtn)
   choices.textContent = ''
 
-  timerEl.textContent = "The Quiz has started..."
+  while (timerEl.firstChild) {
+    timerEl.removeChild(timerEl.firstChild);
+  }
+  if (oldPastScore == null || oldPastScore.length > 10){
+  timerEl.innerHTML += "The Quiz has started..."
+  } else {
+    timerEl.innerHTML += "The Quiz has started..."
+  timerEl.appendChild(pastScore)
+  }
 
 
   var timeInterval = setInterval(function () {
     timeEl.textContent = "you have " + timeLeft + " seconds remaining";
     timeLeft--;
 
-    if ((timeLeft === -1)||(i == questions.length)) {
+    if ((timeLeft === -1) || (i == questions.length)) {
       timeEl.textContent = "";
       timerEl.textContent = "";
 
@@ -235,18 +262,12 @@ quizBtn.addEventListener("click", function () {
 
 
 
-
-
   if ((timeLeft < 0) || (i == questions.length)) {
 
     endingPage()
 
-
-
   } else {
     buildQuiz()
   }
-
-
 })
 
