@@ -46,7 +46,7 @@ function nextQuestion() {
   buttons.forEach(function (buttons) {
 
     buttons.addEventListener("click", function () {
-
+      // this will happen if the user clicked on the right answer
       if (buttons.hasAttribute("answer")) {
 
         score++;
@@ -69,30 +69,32 @@ function nextQuestion() {
           while (choices.firstChild) {
             choices.removeChild(choices.firstChild);
           }
-          for (j = 0; j < questions[i].choices.length; j++) {
-            if (questions[i].choices[j] == questions[i].answer) {
-              var options = document.createElement('h3')
-              options.className += "buttons"
-              options.setAttribute("answer", "right")
-              options.textContent = questions[i].choices[j];
-              choices.appendChild(options)
+          // these comments are example if we dont use the function
+          // for (j = 0; j < questions[i].choices.length; j++) {
+          //   if (questions[i].choices[j] == questions[i].answer) {
+          //     var options = document.createElement('h3')
+          //     options.className += "buttons"
+          //     options.setAttribute("answer", "right")
+          //     options.textContent = questions[i].choices[j];
+          //     choices.appendChild(options)
 
 
-            } else {
-              var options = document.createElement('h3')
-              options.className += "buttons"
-              options.textContent = questions[i].choices[j];
-              choices.appendChild(options)
-            }
-          }
+          //   } else {
+          //     var options = document.createElement('h3')
+          //     options.className += "buttons"
+          //     options.textContent = questions[i].choices[j];
+          //     choices.appendChild(options)
+          //   }
+          // }
+          // using the options function to add the options to the question
+          options()
         } else {
 
           endingPage()
-
         }
 
       } else {
-
+        // this will happen if the user clicked on the wrong answer
         yourAnswer.textContent = "wrong answer!!!";
         let resultN = i + 1;
         results.push(`Q ${resultN}: The answer was Wrong`)
@@ -108,22 +110,8 @@ function nextQuestion() {
           while (choices.firstChild) {
             choices.removeChild(choices.firstChild);
           }
-          for (j = 0; j < questions[i].choices.length; j++) {
-            if (questions[i].choices[j] == questions[i].answer) {
-              var options = document.createElement('h3')
-              options.className += "buttons"
-              options.setAttribute("answer", "right")
-              options.textContent = questions[i].choices[j];
-              choices.appendChild(options)
-
-
-            } else {
-              var options = document.createElement('h3')
-              options.className += "buttons"
-              options.textContent = questions[i].choices[j];
-              choices.appendChild(options)
-            }
-          }
+         // using the options function to add the options to the question
+          options()
         } else {
 
           endingPage()
@@ -134,10 +122,8 @@ function nextQuestion() {
 
   })
 }
-
-function buildQuiz() {
-
-  title.innerHTML = questions[i].title;
+// this options function to is add the options to the questions
+function options(){
   for (var j = 0; j < questions[i].choices.length; j++) {
     if (questions[i].choices[j] == questions[i].answer) {
       var options = document.createElement('h3')
@@ -155,6 +141,15 @@ function buildQuiz() {
     }
 
   }
+  
+
+}
+
+function buildQuiz() {
+
+  title.innerHTML = questions[i].title;
+  
+  options()
   //var buttons = document.querySelector(".option-buttons")
   nextQuestion()
 
