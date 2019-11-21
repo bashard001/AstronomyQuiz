@@ -5,6 +5,7 @@ var choices = document.querySelector("#choices")
 var yourAnswer = document.querySelector("#log");
 
 var quizBtn = document.querySelector('.buttons')
+var results = [];
 
 //questions list
 var questions = [
@@ -49,6 +50,8 @@ function nextQuestion() {
       if (buttons.hasAttribute("answer")) {
 
         score++;
+        let resultN = i + 1;
+        results.push(`Q ${resultN}: The answer was Right`)
 
         yourAnswer.textContent = "great job!!!";
 
@@ -91,6 +94,8 @@ function nextQuestion() {
       } else {
 
         yourAnswer.textContent = "wrong answer!!!";
+        let resultN = i + 1;
+        results.push(`Q ${resultN}: The answer was Wrong`)
 
         setTimeout(function () {
           yourAnswer.textContent = "";
@@ -198,29 +203,45 @@ function endingPage() {
 
     var finalResult = document.createElement("h3")
     var box = document.createElement("fieldset")
+    box.className = "field"
+
     box.innerHTML = "<legend> Scores </legend>"
 
-    
+
+
+
     finalResult.textContent = enterInitials.value.toUpperCase() + " : " + score;
 
     var scoreHistory = finalResult.textContent
-    
-    choices.appendChild(box)
-    finalResult.textContent ="Your score: " + enterInitials.value.toUpperCase() + " : " + score;
 
-    if (oldPastScore == null || oldPastScore.length > 10){
-    choices.firstChild.appendChild(finalResult)
+    choices.appendChild(box)
+    finalResult.textContent = "Your score: " + enterInitials.value.toUpperCase() + " : " + score;
+
+    if (oldPastScore == null || oldPastScore.length > 10) {
+      choices.firstChild.appendChild(finalResult)
+      choices.firstChild.innerHTML += "<hr>"
+      choices.firstChild.innerHTML += "<h3>Your answers:</h3>"
+
     } else {
       choices.firstChild.appendChild(pastScore)
       choices.firstChild.appendChild(finalResult)
+      choices.firstChild.innerHTML += "<hr>"
+      choices.firstChild.innerHTML += "<h3>Your answers:</h3>"
+
     }
-
+    for (let v = 0; v < results.length; v++) {
+      var rightOrWrong = document.createElement("h3")
+      var field = document.querySelector(".field")
+      rightOrWrong.textContent = `${results[v]}`
+      field.appendChild(rightOrWrong)
+    }
     console.log(pastScoreValue)
+    choices.innerHTML += "<div style='display: block; margin-top: 10px; text-align: center;'><a  href='index.html' class='buttons'>Try again</div>"
 
-    if (pastScoreValue < score || pastScoreValue == null){
-    localStorage.setItem("yourScore", scoreHistory)
+    if (pastScoreValue < score || pastScoreValue == null) {
+      localStorage.setItem("yourScore", scoreHistory)
 
-    localStorage.setItem("scorevalue", score)
+      localStorage.setItem("scorevalue", score)
     }
 
 
@@ -238,11 +259,11 @@ quizBtn.addEventListener("click", function () {
   while (timerEl.firstChild) {
     timerEl.removeChild(timerEl.firstChild);
   }
-  if (oldPastScore == null || oldPastScore.length > 10){
-  timerEl.innerHTML += "The Quiz has started..."
+  if (oldPastScore == null || oldPastScore.length > 10) {
+    timerEl.innerHTML += "The Quiz has started..."
   } else {
     timerEl.innerHTML += "The Quiz has started..."
-  timerEl.appendChild(pastScore)
+    timerEl.appendChild(pastScore)
   }
 
 

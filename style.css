@@ -17,6 +17,7 @@
     cursor: pointer;
     background-color: skyblue;
     border-radius: 10px;
+    text-decoration: none;
 }
 
 .buttons:hover{
