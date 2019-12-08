@@ -161,7 +161,7 @@ var i = 0;
 
 var score = 0;
 
-var timeLeft = 75;
+var timeLeft = 80;
 var z = i + 1
 var timeEl = document.getElementById("timeleft")
 
@@ -271,6 +271,7 @@ quizBtn.addEventListener("click", function () {
       timerEl.textContent = "";
 
       clearInterval(timeInterval);
+      endingPage()
 
     }
 
@@ -278,7 +279,7 @@ quizBtn.addEventListener("click", function () {
 
 
 
-  if ((timeLeft < 0) || (i == questions.length)) {
+  if (i == questions.length) {
 
     endingPage()
 
