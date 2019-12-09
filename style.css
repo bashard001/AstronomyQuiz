@@ -1,7 +1,7 @@
 #main-content{
 
-    width: 520px;
-    height: 520px;
+    max-width: 520px;
+    max-height: 520px;
     padding: 10px;
 
     margin: 50px auto;
