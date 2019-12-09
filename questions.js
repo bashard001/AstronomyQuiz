@@ -161,7 +161,7 @@ var i = 0;
 
 var score = 0;
 
-var timeLeft = 80;
+var timeLeft = 200;
 var z = i + 1
 var timeEl = document.getElementById("timeleft")
 

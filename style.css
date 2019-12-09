@@ -45,10 +45,43 @@ margin-left: 20%
 .input {
     margin: 15px;
 }
-
+@media (max-width:888px){
+    #head{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    #main-content{
+        margin-top: 0px;
+    }
+    #timer {
+        float: left;
+        margin-left: 5%;
+        margin-top: 50px;
+        }
+        
+    #timeleft {
+            float: right;
+        
+            margin-right: 0%;
+            margin-top:50px;
+            text-align: center;
+        }
+}
 @media (max-width:600px){
     #main-content{
-    width: 80vw;
+    width: 90vw;
     }
+    #timer {
+        float: left;
+        margin-left: 3%
+        }
+        
+    #timeleft {
+            float: right;
+            text-align: center;
+        
+            margin-right: 0%
+        }
 }
+
 
