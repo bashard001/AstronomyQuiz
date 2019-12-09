@@ -1,6 +1,6 @@
 #main-content{
 
-    max-width: 520px;
+    width: 520px;
     max-height: 520px;
     padding: 10px;
 
@@ -11,7 +11,9 @@
     padding: 20px;
     text-align: center;
 }
-
+#choices {
+    text-align: center;
+}
 .buttons {
     padding: 5px;
     cursor: pointer;
@@ -42,5 +44,11 @@ margin-left: 20%
 }
 .input {
     margin: 15px;
+}
+
+@media (max-width:600px){
+    #main-content{
+    width: 80vw;
+    }
 }
 
