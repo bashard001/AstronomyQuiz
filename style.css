@@ -45,12 +45,19 @@ margin-left: 20%
 .input {
     margin: 15px;
 }
-@media screen, (max-width:888px){
+
+@media (max-width:888px){
     #head{
         display: grid;
         grid-template-columns: 1fr 1fr;
-        width: 75vw;
+        width: 88vw;
         margin: auto;
+    }
+    #title{
+        font-size: 30px;
+    }
+    #choices{
+        font-size: 15px;
     }
     #main-content{
         margin-top: 0px;
@@ -69,9 +76,10 @@ margin-left: 20%
             text-align: end;
         }
 }
-@media screen, (max-width:600px){
+
+@media (max-width: 600px){
     #main-content{
-    max-width: 70vw;
+    max-width: 80vw;
     }
     #timer {
         float: left;
