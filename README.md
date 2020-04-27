@@ -17,3 +17,5 @@ https://bashard001.github.io/AstronomyQuiz/
   * Lastly the user will be presented with Their score, The highest score, and which question they got right and which they got wrong.
 
   * Highest score is only updated when someone beats it.
+  
+
