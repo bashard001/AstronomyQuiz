@@ -12,12 +12,12 @@ var questions = [
 
   {
     title: "How far is the sun from earth?",
-    choices: ["92.69 million mi", "96.92 million mi", "92.96 million mi", "95.63 million mi"],
+    choices: ["92.6 million mi", "96.92 million mi", "92 million mi", "95 million mi"],
     answer: "96.92 million mi"
   },
   {
     title: "How far is the moon from earth?",
-    choices: ["238,900 mi", "283,900 mi", "338,900 mi", "340,000 mi"],
+    choices: ["238,900 mi", "283 mi", "300,100 mi", "340,000 mi"],
     answer: "238,900 mi"
   },
   {
@@ -32,7 +32,7 @@ var questions = [
   },
   {
     title: "How many planets does our solar system has?",
-    choices: ["8", "12", "6", "10"],
+    choices: ["8", "12", "4", "1"],
     answer: "8"
   },
 
